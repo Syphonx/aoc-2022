@@ -1,0 +1,29 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Build project aoc-2022 (g++)",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/Source/**.cpp",
+                "-o", 
+                "${workspaceFolder}/Bin/${workspaceFolderBasename}",
+                "-I${workspaceFolder}/Source"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build project (aoc-2022)"
+        }
+    ],
+    "version": "2.0.0"
+}

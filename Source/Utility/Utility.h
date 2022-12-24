@@ -107,6 +107,27 @@ static bool ReadAsStrings(std::string filename, std::vector<std::string> & lines
 	return true;
 }
 
+static bool ReadAsInts(std::string filename, std::vector<int>& data)
+{
+	std::vector<std::string> lines;
+
+	if (!ReadAsStrings(filename, lines))
+	{
+		std::cerr << "Error reading in the data from " << filename << std::endl;
+		return false;
+	}
+
+	for (std::vector<std::string>::iterator iter = lines.begin(); iter != lines.end(); ++iter)
+	{
+		int l;
+		std::string to_convert = *iter;
+		l = strtol(to_convert.c_str(), NULL, 10);
+		data.push_back(l);
+	}
+
+	return true;
+}
+
 static bool ReadAsSplitStrings(std::string filename, std::vector<std::vector<std::string>> & split_strings, char delimiter, char quote_char, char comment_char)
 {
 	std::vector<std::string> lines;

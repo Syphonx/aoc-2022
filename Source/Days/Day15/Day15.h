@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Day.h"
+#include "Days/Day.h"
 
 class Day15
 	: public AocDay
