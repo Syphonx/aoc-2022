@@ -2,9 +2,13 @@
 
 #include "Days/Day.h"
 
+using namespace std;
+
 class Day1
 	: public AocDay
 {
+		const int32_t num_elves = 3;
+
 public:
 	Day1()
 		: AocDay(1)
@@ -13,29 +17,33 @@ public:
 
 	virtual std::string part1(std::string filename, std::vector<std::string> args) override
 	{
-		std::vector<int> elves;
-		ReadAsInts(filename, elves);
+		vector< vector<int32_t> > elves;
+		int32_t largest = 0;
 
-		int max = 0;
-		int total = 0;
+		ReadLinesAsIntArray(filename, elves);
 
-		for (const int line : elves)
+		for (const std::vector<int>& elf : elves)
 		{
-			total += line;
-			if (line == 0)
-			{
-				max = std::max(max, total);
-				elves.push_back(total);
-				total = 0;
-			}
+			largest = max(Sum<int32_t>(elf), largest);
 		}
 
-		return std::to_string(max);
+		return to_string(largest);
 	}
 
 	virtual std::string part2(std::string filename, std::vector<std::string> args) override
 	{
-		int count = 0;
-		return std::to_string(count);
+		vector<vector<int32_t>> elves;
+		vector<int32_t> running;
+
+		ReadLinesAsIntArray(filename, elves);
+
+		for (const auto& elf : elves)
+		{
+			running.push_back(Sum<int32_t>(elf));
+		}
+
+		SortAscending(running);
+
+		return to_string(SumFirst(running, num_elves));
 	}
 };

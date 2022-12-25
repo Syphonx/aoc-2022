@@ -1,11 +1,6 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <stdio.h>
-
-#include "Utility/Utility.h"
+#include "Core/Utility.h"
 
 class AocDay
 {
@@ -14,7 +9,7 @@ public:
 		: day(day)
 	{
 	}
-	~AocDay() {}
+	virtual ~AocDay() {}
 
 	int GetDay() const { return day; }
 
@@ -28,7 +23,11 @@ protected:
 class AocMonth
 {
 public:
-	AocMonth() {}
+	AocMonth() 
+		: days()
+	{
+
+	}
 	~AocMonth() {}
 
 	void AddDay(int day, AocDay* dayPtr)

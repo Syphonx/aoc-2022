@@ -1,14 +1,17 @@
-#include <iostream>
 #include <chrono>
-#include <time.h>
-#include <stdio.h>
-#include <vector>
-#include <string>
-#include <stack>
 #include <deque>
-#include <stdlib.h>
+#include <stdio.h>
+#include <string>
+#include <time.h>
+#include <vector>
+#include <inttypes.h>
 
 #include "Days/Days.h"
+
+// #define USE_DEBUG
+// #define DEBUG_INPUT
+// #define DEBUG_DAY 1
+// #define DEBUG_PART 2
 
 struct Advent
 {
@@ -19,31 +22,31 @@ struct Advent
 
 static const Advent s_Advent[] =
 {
-	{ new Day1(),   "../Input/Day1.txt", "../Input/Day1_Example.txt" },
-	{ new Day2(),   "../Input/Day2.txt", "../Input/Day2_Example.txt" },
-	{ new Day3(),   "../Input/Day3.txt", "../Input/Day3_Example.txt" },
-	{ new Day4(),   "../Input/Day4.txt", "../Input/Day4_Example.txt" },
-	{ new Day5(),   "../Input/Day5.txt", "../Input/Day5_Example.txt" },
-	{ new Day6(),   "../Input/Day6.txt", "../Input/Day6_Example.txt" },
-	{ new Day7(),   "../Input/Day7.txt", "../Input/Day7_Example.txt" },
-	{ new Day8(),   "../Input/Day8.txt", "../Input/Day8_Example.txt" },
-	{ new Day9(),   "../Input/Day9.txt", "../Input/Day9_Example.txt" },
-	{ new Day10(), "../Input/Day10.txt", "../Input/Day10_Example.txt" },
-	{ new Day11(), "../Input/Day11.txt", "../Input/Day11_Example.txt" },
-	{ new Day12(), "../Input/Day12.txt", "../Input/Day12_Example.txt" },
-	{ new Day13(), "../Input/Day13.txt", "../Input/Day13_Example.txt" },
-	{ new Day14(), "../Input/Day14.txt", "../Input/Day14_Example.txt" },
-	{ new Day15(), "../Input/Day15.txt", "../Input/Day15_Example.txt" },
-	{ new Day16(), "../Input/Day16.txt", "../Input/Day16_Example.txt" },
-	{ new Day17(), "../Input/Day17.txt", "../Input/Day17_Example.txt" },
-	{ new Day18(), "../Input/Day18.txt", "../Input/Day18_Example.txt" },
-	{ new Day19(), "../Input/Day19.txt", "../Input/Day19_Example.txt" },
-	{ new Day20(), "../Input/Day20.txt", "../Input/Day20_Example.txt" },
-	{ new Day21(), "../Input/Day21.txt", "../Input/Day21_Example.txt" },
-	{ new Day22(), "../Input/Day22.txt", "../Input/Day22_Example.txt" },
-	{ new Day23(), "../Input/Day23.txt", "../Input/Day23_Example.txt" },
-	{ new Day24(), "../Input/Day24.txt", "../Input/Day24_Example.txt" },
-	{ new Day25(), "../Input/Day25.txt", "../Input/Day25_Example.txt" },
+	{ new Day1(),   "../Input/Day1.txt", "../Input/Examples/Day1_Example.txt" },
+	{ new Day2(),   "../Input/Day2.txt", "../Input/Examples/Day2_Example.txt" },
+	{ new Day3(),   "../Input/Day3.txt", "../Input/Examples/Day3_Example.txt" },
+	{ new Day4(),   "../Input/Day4.txt", "../Input/Examples/Day4_Example.txt" },
+	{ new Day5(),   "../Input/Day5.txt", "../Input/Examples/Day5_Example.txt" },
+	{ new Day6(),   "../Input/Day6.txt", "../Input/Examples/Day6_Example.txt" },
+	{ new Day7(),   "../Input/Day7.txt", "../Input/Examples/Day7_Example.txt" },
+	{ new Day8(),   "../Input/Day8.txt", "../Input/Examples/Day8_Example.txt" },
+	{ new Day9(),   "../Input/Day9.txt", "../Input/Examples/Day9_Example.txt" },
+	{ new Day10(), "../Input/Day10.txt", "../Input/Examples/Day10_Example.txt" },
+	{ new Day11(), "../Input/Day11.txt", "../Input/Examples/Day11_Example.txt" },
+	{ new Day12(), "../Input/Day12.txt", "../Input/Examples/Day12_Example.txt" },
+	{ new Day13(), "../Input/Day13.txt", "../Input/Examples/Day13_Example.txt" },
+	{ new Day14(), "../Input/Day14.txt", "../Input/Examples/Day14_Example.txt" },
+	{ new Day15(), "../Input/Day15.txt", "../Input/Examples/Day15_Example.txt" },
+	{ new Day16(), "../Input/Day16.txt", "../Input/Examples/Day16_Example.txt" },
+	{ new Day17(), "../Input/Day17.txt", "../Input/Examples/Day17_Example.txt" },
+	{ new Day18(), "../Input/Day18.txt", "../Input/Examples/Day18_Example.txt" },
+	{ new Day19(), "../Input/Day19.txt", "../Input/Examples/Day19_Example.txt" },
+	{ new Day20(), "../Input/Day20.txt", "../Input/Examples/Day20_Example.txt" },
+	{ new Day21(), "../Input/Day21.txt", "../Input/Examples/Day21_Example.txt" },
+	{ new Day22(), "../Input/Day22.txt", "../Input/Examples/Day22_Example.txt" },
+	{ new Day23(), "../Input/Day23.txt", "../Input/Examples/Day23_Example.txt" },
+	{ new Day24(), "../Input/Day24.txt", "../Input/Examples/Day24_Example.txt" },
+	{ new Day25(), "../Input/Day25.txt", "../Input/Examples/Day25_Example.txt" },
 };
 
 struct CommandLine
@@ -80,9 +83,9 @@ struct CommandLine
 void usage(std::string prog_name)
 {
 	std::cerr << "Usage for " << prog_name << std::endl;
-	std::cerr << "   Run all: " << prog_name << " -a" << std::endl;
-	std::cerr << "   Run one day: " << prog_name << " -d day [extra_args...]" << std::endl;
-	std::cerr << "   Run one day/part: " << prog_name << " -d day -p part" << std::endl;
+	std::cerr << "\tRun all: " << prog_name << " -a" << std::endl;
+	std::cerr << "\tRun one day: " << prog_name << " -d day [extra_args...]" << std::endl;
+	std::cerr << "\tRun one day/part: " << prog_name << " -d day -p part" << std::endl;
 }
 
 double BenchPart(const Advent& advent, const std::string& input, int part)
@@ -103,7 +106,7 @@ double BenchPart(const Advent& advent, const std::string& input, int part)
 	auto elapsed = std::chrono::steady_clock::now() - now;
 	printf("Part %d: %s\n", part, result.c_str());
 	totalTime += elapsed.count();
-	printf("Took: [%lld us]\n", int64_t(elapsed.count() * 1e-3));
+	printf("Took: [%" PRId64 " us]\n", static_cast<int64_t>((elapsed.count() * 1e-3)));
 
 	return totalTime;
 }
@@ -138,10 +141,22 @@ int main(int argc, char* argv[])
 {
 	CommandLine cmd;
 	std::deque<std::string> args;
+
 	for (int i = 1; i < argc; i++)
 	{
 		args.push_back(argv[i]);
 	}
+
+#ifdef USE_DEBUG
+	args.push_back("-d");
+	args.push_back(std::to_string(DEBUG_DAY));
+	args.push_back("-p");
+	args.push_back(std::to_string(DEBUG_PART));
+#endif
+
+#ifdef DEBUG_INPUT
+	args.push_back("-t");
+#endif
 
 	if (args.size() == 0)
 	{
@@ -193,7 +208,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	printf("\nTotal: %lld us\n", int64_t(totalTime * 1e-3));
+	printf("\nTotal: " PRId64 " us\n", static_cast<int64_t>((totalTime * 1e-3)));
 
 	return 0;
 }
